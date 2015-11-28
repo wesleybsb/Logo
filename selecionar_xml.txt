@@ -1,0 +1,33 @@
+<form class="form-inline" action="/nf/nf-entrada/ler-xml" method="post" name="formulario" id="formulario" enctype="multipart/form-data">
+            
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Selecionar arquivo xml</h4>
+        <hr />
+        
+        <div class="modal-body">
+            <div class="row"> 
+            
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="form-group">
+                        <label for="vl_custo" class="col-sm-8 control-label">Selecionar XML</label>
+                        <div class="col-sm-4">
+                            <span class="btn btn-primary btn-file"><span class="fileupload-new">Selecionar</span>
+                            <span class="fileupload-exists">Change</span>        
+                            <input type="file" name="arquivo_xml" /></span>
+                            <span class="fileupload-preview"></span>
+                            <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Ler XML</button>
+                </div>
+    
+            </div>   
+        </div>
+    </div>
+            
+</form>

@@ -1,0 +1,73 @@
+//o codigo abaixo faz a gravção da logo do fornecedor no servidor e renomeia 
+         /* Instancia Zend_File_Transfer_Adapter_Http */
+        $upload = new Zend_File_Transfer_Adapter_Http();
+        /* Destino do arquivo */
+        $upload->setDestination('C:\wamp\www\primotec\public\xml/');   
+        $files = $upload->getFileInfo();
+        //   echo($info['name']);die(); aqui sera o nome para daimagem para salvar no banco de dados
+        foreach ($files as $file => $info) {
+        	$ext = pathinfo($info['name']); 
+        	$userid = $_FILES['arquivo_xml']['name'];
+            
+           // $upload->addFilter('Rename', array('target' => 'C:\wamp\www\primotec\public\xml/'.$userid, 'overwrite' => true),'file1');
+            $nomeImg = $userid; // captura o nome da imagem para salvar no banco
+      
+            $upload->receive($file);
+            /* Verifica se é valido */
+            if ($upload->isValid($file)) {
+                /* Sobe */
+                $upload->receive($file);
+            }
+        }
+    	
+    	
+        $arquivo_xml = simplexml_load_file("xml/$nomeImg");
+    
+        foreach ($arquivo_xml->NFe as $key => $xml) {
+    
+            $NUMERO                                    = "".$xml->infNFe->ide->nNF."";                  	 // NUMERO NFE
+            $MOD_EMIT                                 = "".$xml->infNFe->ide->mod."";                	 // CNPJ MODELO
+            $SERIE_EMIT       		   = "".$xml->infNFe->ide->serie."";               	 // CNPJ SERIE
+            $XML             		   = "".$arquivo_xml->protNFe->infProt->chNFe."";     // XML
+            $RZ_EMITENTE      		   = "".$xml->infNFe->emit->xNome."";                       // RAZÃO EMITENTE
+            $NO_EMITENTE      		   = "".$xml->infNFe->emit->xFant."";                	 // NOME FANTASIA EMITENTE
+            $ENDERECO_EMITENTE	   = "".$xml->infNFe->emit->enderEmit->xLgr."";         // ENDERECO EMITENTE
+            $NUMERO_EMITENTE   	   = "".$xml->infNFe->emit->enderEmit->nro."";           // NUMERO ENDERECO EMITENTE
+            $COMPLE_EMITENTE   	   = "".$xml->infNFe->emit->enderEmit->xCpl."";         // COMPLEMENTO ENDERECO EMITENTE
+            $BAIRRO_EMITENTE  	   = "".$xml->infNFe->emit->enderEmit->xBairro."";     // BAIRRO EMITENTE
+            $UF_EMITENTE       		   = "".$xml->infNFe->emit->enderEmit->UF."";            // UF EMITENTE
+            $CEP_EMITENTE      		   = "".$xml->infNFe->emit->enderEmit->CEP."";         // CEP EMITENTE
+            $FONE_EMITENTE                	   = "".$xml->infNFe->emit->enderEmit->fone."";         // TELEFONE EMITENTE
+            $CNPJ_EMIT        		   = "".$xml->infNFe->emit->CNPJ."";                         // CNPJ EMITENTE
+            $DATA_EMIT         		   = "".$xml->infNFe->ide->dhEmi."";                           // DATA EMISSÃO
+            $VALOR_TOT        		   = "".$xml->infNFe->total->ICMSTot->vNF."";           // VALOR NF-E
+            $VALOR_PROD      		   = "".$xml->infNFe->total->ICMSTot->vProd."";        // VALOR NF-E
+            $VALOR_DESC       		   = "".$xml->infNFe->total->ICMSTot->vDesc."";       // VALOR DESCONTO
+            $VALOR_FRET       	 	   = "".$xml->infNFe->total->ICMSTot->vFrete."";       // VALOR FRETE
+            $CNPJ_DEST        		   = "".$xml->infNFe->dest->CNPJ."";                         // CNPJ DESTINATÁRIO
+            $IE_DEST           		   = "".$xml->infNFe->dest->IE."";                              // INSCRICAO ESTADUAL DESTINATÁRIO
+            $RZ_DESTIN       		   = "".$xml->infNFe->dest->xNome."";                       // RAZÃO DESTINATÁRIO 
+            
+         
+        
+            // exibindo os dados coletados
+           echo "Emitente: "."$RZ_EMITENTE <br>";
+           echo "$CNPJ_EMIT <br> ";
+           echo "$DATA_EMIT <br> ";
+           echo "$NUMERO <br>";
+           echo "$MOD_EMIT <br>";
+           echo "$SERIE_EMIT <br>";
+           echo "$userid <br>";
+           echo "$VALOR_TOT <br><br>";
+           echo "Destinatário: "."$RZ_DESTIN <br>";
+           echo "$CNPJ_DEST <br>";
+           echo "<br>";
+            
+          echo "$ENDERECO_EMITENTE  <br> ";
+          echo "$NUMERO_EMITENTE    <br> ";
+          echo "$COMPLE_EMITENTE    <br> ";
+          echo "$BAIRRO_EMITENTE    <br> ";
+          echo "$UF_EMITENTE        <br> ";
+          echo "$CEP_EMITENTE       <br> ";
+          echo "$FONE_EMITENTE      <br> ";
+            
